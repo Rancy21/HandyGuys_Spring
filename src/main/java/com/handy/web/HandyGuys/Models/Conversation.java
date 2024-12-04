@@ -1,11 +1,35 @@
 package com.handy.web.HandyGuys.Models;
 
+import java.util.List;
 import java.util.UUID;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "conversations")
 public class Conversation {
+
+    @Id
+    @Column(name = "conversation_id")
     private UUID id = UUID.randomUUID();
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user1;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user2;
+
+    @OneToMany(mappedBy = "conversation")
+    private List<Chat> chats;
+    
     public UUID getId() {
         return id;
     }
@@ -23,5 +47,8 @@ public class Conversation {
     }
     public void setUser2(User user2) {
         this.user2 = user2;
+    }
+    public List<Chat> getChats() {
+        return chats;
     }
 }

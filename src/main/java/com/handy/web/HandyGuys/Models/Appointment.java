@@ -3,14 +3,32 @@ package com.handy.web.HandyGuys.Models;
 import java.util.Date;
 import java.util.UUID;
 
-public class Appointment {
-    private UUID id = UUID.randomUUID();
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
+@Entity
+@Table(name = "appointments")
+public class Appointment {
+    @Id
+    @Column(name = "appointment_id")
+    private UUID id = UUID.randomUUID();
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private User Helper;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private User client;
+    @Column(name = "client_address")
     private String client_address;
+    @Column(name = "date_of_appointment")
     private Date dateOfAppointment;
+    @Column(name = "purpose")
     private String purpose;
+    @Column(name = "appointment_status")
     private AppoinmenntStatus status;
 
     public UUID getId() {

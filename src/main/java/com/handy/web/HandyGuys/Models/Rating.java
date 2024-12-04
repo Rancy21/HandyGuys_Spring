@@ -2,11 +2,27 @@ package com.handy.web.HandyGuys.Models;
 
 import java.util.UUID;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "ratings")
 public class Rating {
+    @Id
+    @Column(name = "rating_id")
     private UUID id = UUID.randomUUID();
+    @ManyToOne
+    @JoinColumn(name = "skill_id")
     private Skill skill;
+    @Column(name = "number_of_ratings")
     private double numberOfRatings;
+    @Column(name = "cumulated_ratings")
     private double cumulatedRatings;
+    @Column(name = "avg_rating")
     private float avgRating;
 
     public UUID getId() {
