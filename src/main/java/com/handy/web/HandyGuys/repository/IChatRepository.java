@@ -1,0 +1,11 @@
+package com.handy.web.HandyGuys.repository;
+
+import java.util.UUID;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.handy.web.HandyGuys.Models.Chat;
+
+public interface IChatRepository extends JpaRepository<Chat, UUID>{
+    
+}
