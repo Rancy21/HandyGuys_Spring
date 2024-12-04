@@ -25,10 +25,25 @@ public class Skill {
     private String description;
     @ManyToOne
     @JoinColumn(name = "handy_id")
-    private User HandyGuy;
+    private User handyGuy;
 
     @OneToMany(mappedBy = "skill", fetch = FetchType.EAGER)
     List<Review> reviews;
+
+    @OneToMany(mappedBy = "skill", fetch = FetchType.EAGER)
+    List<Appointment> appointments;
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public List<Appointment> getAppointments() {
+        return appointments;
+    }
+
+    public Rating getRating() {
+        return rating;
+    }
 
     @OneToOne(mappedBy = "skill")
     Rating rating;
@@ -58,11 +73,11 @@ public class Skill {
     }
 
     public User getHandyGuy() {
-        return HandyGuy;
+        return handyGuy;
     }
 
     public void setHandyGuy(User handyGuy) {
-        HandyGuy = handyGuy;
+        this.handyGuy = handyGuy;
     }
 
 }
