@@ -1,15 +1,34 @@
 package com.handy.web.HandyGuys.Models;
 
 import java.util.UUID;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+
 import java.util.Date;
 
+@Entity
+@Table(name = "Reviews")
 public class Review {
 
+    @Id
+    @Column(name = "id")
     private UUID id = UUID.randomUUID();
+    @ManyToOne
+    @Column(name = "skill_id")
     private Skill skill;
+    @Column(name = "review")
     private String review;
+    @Column(name = "rating")
     private int rating;
+    @Column(name = "date")
     private Date date;
+    @OneToOne
+    @Column(name = "user_id")
     private User user;
 
     public User getUser() {
