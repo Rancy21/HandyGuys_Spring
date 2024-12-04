@@ -18,7 +18,7 @@ public class Appointment {
     private UUID id = UUID.randomUUID();
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User Helper;
+    private User helper;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User client;
@@ -40,11 +40,11 @@ public class Appointment {
     }
 
     public User getHelper() {
-        return Helper;
+        return helper;
     }
 
     public void setHelper(User helper) {
-        Helper = helper;
+        this.helper = helper;
     }
 
     public User getClient() {

@@ -22,16 +22,26 @@ public class User {
     private String lastName;
     @Column(name = "email")
     private String email;
+    @Column(name = "phone_number")
     private String phoneNumber;
     @Column(name = "password")
     private String password;
-    @Column(name = "isHandy")
+    @Column(name = "is_handy")
     private boolean isHandy;
     @Column(name = "is_active")
     private boolean isActive;
 
     @OneToMany(mappedBy = "user1", fetch = FetchType.EAGER)
     List<Conversation> conversations1;
+
+    @OneToMany(mappedBy = "user2", fetch = FetchType.EAGER)
+    List<Conversation> conversations2;
+
+    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
+    List<Appointment> clientAppointments;
+
+    @OneToMany(mappedBy = "helper", fetch = FetchType.EAGER)
+    List<Appointment> helperAppointments;
 
     public boolean isHandy() {
         return isHandy;
