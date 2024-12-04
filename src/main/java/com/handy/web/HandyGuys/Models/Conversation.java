@@ -4,4 +4,6 @@ import java.util.UUID;
 
 public class Conversation {
     private UUID id;
+    private User user1;
+    private User user2;
 }
