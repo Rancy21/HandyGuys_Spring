@@ -5,10 +5,12 @@ import java.util.UUID;
 import java.util.Locale.Category;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import com.handy.web.HandyGuys.Models.Skill;
 
-public interface ISkillRepository extends JpaRepository<Skill, UUID>{
+@Repository
+public interface ISkillRepository extends JpaRepository<Skill, UUID> {
 
     List<Skill> findByCategory(Category category);
 }
