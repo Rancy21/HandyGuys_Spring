@@ -33,7 +33,7 @@ public class User {
     private boolean isActive = true;
 
     @Column(name = "signup_date")
-    private Date SignUpDate;
+    private Date signUpDate;
 
     @OneToMany(mappedBy = "user1", fetch = FetchType.EAGER)
     List<Conversation> conversations1;
@@ -128,6 +128,18 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Date getSignUpDate() {
+        return signUpDate;
+    }
+
+    public void setSignUpDate(Date signUpDate) {
+        this.signUpDate = signUpDate;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
     }
 
 }
