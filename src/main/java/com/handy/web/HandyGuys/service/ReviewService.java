@@ -1,6 +1,7 @@
 package com.handy.web.HandyGuys.service;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -27,6 +28,16 @@ public class ReviewService {
             return "Review updated successfully";
         } else {
             return "Review not found";
+        }
+    }
+
+    public Review getReview(UUID id) {
+        Optional<Review> review = repository.findById(id);
+
+        if (review.isPresent()) {
+            return review.get();
+        } else {
+            return null;
         }
     }
 
