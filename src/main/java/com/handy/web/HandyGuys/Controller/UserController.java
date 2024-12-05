@@ -1,5 +1,7 @@
 package com.handy.web.HandyGuys.Controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -68,6 +70,16 @@ public class UserController {
             return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
         } else {
             return new ResponseEntity<>(deleteUser, HttpStatus.OK);
+        }
+    }
+
+    @GetMapping(value = "/getLatestSignUpList", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getLatestSignUpList() {
+        List<User> latestSignUP = service.getLatestSignUpList();
+        if (latestSignUP.isEmpty() || latestSignUP == null) {
+            return new ResponseEntity<>("No sign up this month", HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(latestSignUP, HttpStatus.OK);
         }
     }
 
