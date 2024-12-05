@@ -45,6 +45,15 @@ public class UserService {
         }
     }
 
+    public User getUser(String email) {
+        Optional<User> user = repository.findUserByEmail(email);
+        if (user.isPresent()) {
+            return user.get();
+        } else {
+            return null;
+        }
+    }
+
     public String deleteUser(String email) {
         Optional<User> existingUser = repository.findUserByEmail(email);
         if (existingUser.isPresent()) {
