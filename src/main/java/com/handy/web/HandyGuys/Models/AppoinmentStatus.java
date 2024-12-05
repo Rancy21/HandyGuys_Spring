@@ -1,5 +1,5 @@
 package com.handy.web.HandyGuys.Models;
 
-public enum AppoinmenntStatus {
+public enum AppoinmentStatus {
     Completed, Canceled, Pending
 }

@@ -1,5 +1,7 @@
 package com.handy.web.HandyGuys.service;
 
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,4 +18,10 @@ public class ConversationService {
         repo.save(conversation);
         return "Conversation saved successfully";
     }
+
+    public Conversation getConversationById(String stringId) {
+        return repo.findById(UUID.fromString(stringId)).orElse(null);
+    }
+
+    
 }

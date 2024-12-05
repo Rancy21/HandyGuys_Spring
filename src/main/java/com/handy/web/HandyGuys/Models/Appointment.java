@@ -29,7 +29,7 @@ public class Appointment {
     @Column(name = "purpose")
     private String purpose;
     @Column(name = "appointment_status")
-    private AppoinmenntStatus status;
+    private AppoinmentStatus status;
 
     public UUID getId() {
         return id;
@@ -71,11 +71,11 @@ public class Appointment {
         this.purpose = purpose;
     }
 
-    public AppoinmenntStatus getStatus() {
+    public AppoinmentStatus getStatus() {
         return status;
     }
 
-    public void setStatus(AppoinmenntStatus status) {
+    public void setStatus(AppoinmentStatus status) {
         this.status = status;
     }
 
