@@ -20,7 +20,7 @@ public class UserService {
 
     public String saveUser(User user) {
         Optional<User> existingUser = repository.findUserByEmail(user.getEmail());
-        if (existingUser.isPresent()) {
+        if (existingUser.isPresent() && existingUser.get().isActive()) {
             return "User already exists";
         } else {
             repository.save(user);
@@ -30,7 +30,7 @@ public class UserService {
 
     public String updateUser(User user, String email) {
         Optional<User> existingUser = repository.findUserByEmail(email);
-        if (existingUser.isPresent()) {
+        if (existingUser.isPresent() && existingUser.get().isActive()) {
             Optional<User> userWithEmail = repository.findUserByEmail(user.getEmail());
             if (userWithEmail.isPresent() && !user.getEmail().equalsIgnoreCase(email)) {
                 return "user with Email already exists";
@@ -52,7 +52,7 @@ public class UserService {
 
     public User getUser(String email) {
         Optional<User> user = repository.findUserByEmail(email);
-        if (user.isPresent()) {
+        if (user.isPresent() && user.get().isActive()) {
             return user.get();
         } else {
             return null;
@@ -61,7 +61,7 @@ public class UserService {
 
     public String deleteUser(String email) {
         Optional<User> existingUser = repository.findUserByEmail(email);
-        if (existingUser.isPresent()) {
+        if (existingUser.isPresent() && existingUser.get().isActive()) {
             User deletedUser = existingUser.get();
             deletedUser.setActive(false);
             repository.save(deletedUser);

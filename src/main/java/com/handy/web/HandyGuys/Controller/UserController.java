@@ -66,7 +66,7 @@ public class UserController {
         }
     }
 
-    @PostMapping(value = "/deleteUser", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/deleteUser", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> deleteUser(@RequestParam(required = true) String email) {
         String deleteUser = service.deleteUser(email);
         if (deleteUser.equalsIgnoreCase("User not found")) {
