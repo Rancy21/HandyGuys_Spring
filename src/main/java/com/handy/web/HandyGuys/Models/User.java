@@ -29,7 +29,7 @@ public class User {
     @Column(name = "is_handy")
     private boolean isHandy;
     @Column(name = "is_active")
-    private boolean isActive;
+    private boolean isActive = true;
 
     @OneToMany(mappedBy = "user1", fetch = FetchType.EAGER)
     List<Conversation> conversations1;
@@ -40,8 +40,27 @@ public class User {
     @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
     List<Appointment> clientAppointments;
 
-    @OneToMany(mappedBy = "helper", fetch = FetchType.EAGER)
-    List<Appointment> helperAppointments;
+    @OneToMany(mappedBy = "handyGuy", fetch = FetchType.EAGER)
+    List<Skill> skills;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    List<Review> reviews;
+
+    public List<Conversation> getConversations1() {
+        return conversations1;
+    }
+
+    public List<Conversation> getConversations2() {
+        return conversations2;
+    }
+
+    public List<Appointment> getClientAppointments() {
+        return clientAppointments;
+    }
+
+    public List<Skill> getSkills() {
+        return skills;
+    }
 
     public boolean isHandy() {
         return isHandy;

@@ -17,8 +17,8 @@ public class Appointment {
     @Column(name = "appointment_id")
     private UUID id = UUID.randomUUID();
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User helper;
+    @JoinColumn(name = "skill_id")
+    private Skill skill;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User client;
@@ -37,14 +37,6 @@ public class Appointment {
 
     public void setId(UUID id) {
         this.id = id;
-    }
-
-    public User getHelper() {
-        return helper;
-    }
-
-    public void setHelper(User helper) {
-        this.helper = helper;
     }
 
     public User getClient() {
@@ -85,6 +77,14 @@ public class Appointment {
 
     public void setStatus(AppoinmenntStatus status) {
         this.status = status;
+    }
+
+    public Skill getSkill() {
+        return skill;
+    }
+
+    public void setSkill(Skill skill) {
+        this.skill = skill;
     }
 
 }
