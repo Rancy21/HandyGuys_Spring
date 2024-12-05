@@ -29,7 +29,7 @@ public class Review {
     @Column(name = "date")
     private Date date;
     @OneToOne
-    @Column(name = "user_id")
+    @JoinColumn(name = "user_id")
     private User user;
 
     public User getUser() {
