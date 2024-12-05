@@ -1,5 +1,6 @@
 package com.handy.web.HandyGuys.Models;
 
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -30,6 +31,9 @@ public class User {
     private boolean isHandy;
     @Column(name = "is_active")
     private boolean isActive = true;
+
+    @Column(name = "signup_date")
+    private Date SignUpDate;
 
     @OneToMany(mappedBy = "user1", fetch = FetchType.EAGER)
     List<Conversation> conversations1;
