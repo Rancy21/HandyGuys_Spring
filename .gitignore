@@ -32,9 +32,8 @@ build/
 ### VS Code ###
 .vscode/
 
-# Ignore pom.xml
-pom.xml
 
 # Ignore application.properties
 src/main/java/com/handy/web/HandyGuys/resources/application.properties
 
+pom.xml
