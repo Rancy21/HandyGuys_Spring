@@ -14,14 +14,14 @@ public class RatingService {
     @Autowired
     IRatingRepository repo;
 
-    public String saveRating(Rating rating){
+    public String saveRating(Rating rating) {
         repo.save(rating);
         return "Rating saved successfully";
     }
 
-    public String updateRating(Rating rating){
+    public String updateRating(Rating rating) {
         Optional<Rating> oldRating = repo.findById(rating.getId());
-        if(oldRating.isPresent()){
+        if (oldRating.isPresent()) {
             oldRating.get().setNumberOfRatings(rating.getNumberOfRatings());
             oldRating.get().setCumulatedRatings(rating.getCumulatedRatings());
             oldRating.get().setAvgRating(rating.getAvgRating());

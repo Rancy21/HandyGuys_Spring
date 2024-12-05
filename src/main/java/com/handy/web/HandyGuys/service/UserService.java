@@ -27,6 +27,10 @@ public class UserService {
     public String updateUser(User user, String email) {
         Optional<User> existingUser = repository.findUserByEmail(email);
         if (existingUser.isPresent()) {
+            Optional<User> userWithEmail = repository.findUserByEmail(user.getEmail());
+            if (userWithEmail.isPresent()) {
+                return "user with Email already exists";
+            }
             User updatedUser = existingUser.get();
             updatedUser.setEmail(user.getEmail());
             updatedUser.setFirstName(user.getFirstName());
@@ -38,6 +42,15 @@ public class UserService {
             return "User updated successfully";
         } else {
             return "User not found";
+        }
+    }
+
+    public User getUser(String email) {
+        Optional<User> user = repository.findUserByEmail(email);
+        if (user.isPresent()) {
+            return user.get();
+        } else {
+            return null;
         }
     }
 
