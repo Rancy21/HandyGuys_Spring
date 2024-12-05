@@ -4,10 +4,12 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.handy.web.HandyGuys.Models.Skill;
 import com.handy.web.HandyGuys.repository.ISkillRepository;
 
+@Service
 public class SkillService {
 
     @Autowired

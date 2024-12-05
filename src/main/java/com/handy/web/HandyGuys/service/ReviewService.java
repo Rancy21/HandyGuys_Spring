@@ -4,10 +4,12 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.handy.web.HandyGuys.Models.Review;
 import com.handy.web.HandyGuys.repository.IReviewRepository;
 
+@Service
 public class ReviewService {
 
     @Autowired
