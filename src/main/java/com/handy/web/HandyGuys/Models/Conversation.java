@@ -21,11 +21,11 @@ public class Conversation {
     private UUID id = UUID.randomUUID();
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user1_id")
     private User user1;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user2_id")
     private User user2;
 
     @OneToMany(mappedBy = "conversation", fetch = FetchType.EAGER)
