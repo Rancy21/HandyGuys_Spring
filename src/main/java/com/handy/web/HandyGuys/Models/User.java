@@ -31,7 +31,6 @@ public class User {
     private boolean isHandy;
     @Column(name = "is_active")
     private boolean isActive = true;
-
     @Column(name = "signup_date")
     private Date signUpDate;
 
