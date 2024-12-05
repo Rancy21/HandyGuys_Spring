@@ -58,7 +58,10 @@ public class UserController {
         String updateUser = service.updateUser(user, email);
         if (updateUser.equalsIgnoreCase("User not found")) {
             return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
-        } else {
+        } else if (updateUser.equalsIgnoreCase("user with Email already exists")) {
+            return new ResponseEntity<>("This email is already in use", HttpStatus.CONFLICT);
+        }
+        else {
             return new ResponseEntity<>(updateUser, HttpStatus.OK);
         }
     }
