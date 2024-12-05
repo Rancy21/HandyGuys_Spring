@@ -1,6 +1,7 @@
 package com.handy.web.HandyGuys.service;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -38,6 +39,15 @@ public class SkillService {
             return "skill updated successfully";
         } else {
             return "Skill not found";
+        }
+    }
+
+    public Skill getSkill(UUID id) {
+        Optional<Skill> skill = repo.findById(id);
+        if (skill.isPresent()) {
+            return skill.get();
+        } else {
+            return null;
         }
     }
 }
