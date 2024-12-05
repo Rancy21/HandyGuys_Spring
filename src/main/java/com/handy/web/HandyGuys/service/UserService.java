@@ -32,9 +32,10 @@ public class UserService {
         Optional<User> existingUser = repository.findUserByEmail(email);
         if (existingUser.isPresent()) {
             Optional<User> userWithEmail = repository.findUserByEmail(user.getEmail());
-            if (userWithEmail.isPresent()) {
+            if (userWithEmail.isPresent() && !user.getEmail().equalsIgnoreCase(email)) {
                 return "user with Email already exists";
             }
+            
             User updatedUser = existingUser.get();
             updatedUser.setEmail(user.getEmail());
             updatedUser.setFirstName(user.getFirstName());
