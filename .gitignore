@@ -36,4 +36,5 @@ build/
 # Ignore application.properties
 
 pom.xml
+
 src/main/resources/application.properties
