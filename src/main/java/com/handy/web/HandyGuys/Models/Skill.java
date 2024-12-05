@@ -20,7 +20,7 @@ public class Skill {
     @Column(name = "id")
     private UUID id = UUID.randomUUID();
     @Column(name = "category")
-    private Category category;
+    private ECategory category;
     @Column(name = "description")
     private String description;
     @ManyToOne
@@ -56,11 +56,11 @@ public class Skill {
         this.id = id;
     }
 
-    public Category getCategory() {
+    public ECategory getCategory() {
         return category;
     }
 
-    public void setCategory(Category category) {
+    public void setCategory(ECategory category) {
         this.category = category;
     }
 
