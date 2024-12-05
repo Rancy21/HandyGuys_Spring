@@ -13,5 +13,5 @@ import com.handy.web.HandyGuys.Models.User;
 public interface IUserRepository extends JpaRepository<User, UUID> {
     Optional<User> findUserByEmail(String email);
 
-    List<User> findAllUsersOrderBySignUpDateDesc();
+    List<User> findAllByOrderBySignUpDateDesc();
 }

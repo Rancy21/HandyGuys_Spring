@@ -71,7 +71,7 @@ public class UserService {
     }
 
     public List<User> getLatestSignUpList() {
-        return repository.findAllUsersOrderBySignUpDateDesc().stream()
+        return repository.findAllByOrderBySignUpDateDesc().stream()
                 .filter(user -> {
                     LocalDate signUpDate = user.getSignUpDate().toInstant()
                             .atZone(ZoneId.systemDefault())
