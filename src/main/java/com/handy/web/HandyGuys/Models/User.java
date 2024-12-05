@@ -1,5 +1,6 @@
 package com.handy.web.HandyGuys.Models;
 
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -30,6 +31,9 @@ public class User {
     private boolean isHandy;
     @Column(name = "is_active")
     private boolean isActive = true;
+
+    @Column(name = "signup_date")
+    private Date signUpDate;
 
     @OneToMany(mappedBy = "user1", fetch = FetchType.EAGER)
     List<Conversation> conversations1;
@@ -124,6 +128,18 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Date getSignUpDate() {
+        return signUpDate;
+    }
+
+    public void setSignUpDate(Date signUpDate) {
+        this.signUpDate = signUpDate;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
     }
 
 }

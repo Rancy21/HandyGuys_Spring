@@ -1,5 +1,6 @@
 package com.handy.web.HandyGuys.repository;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -11,4 +12,6 @@ import com.handy.web.HandyGuys.Models.User;
 @Repository
 public interface IUserRepository extends JpaRepository<User, UUID> {
     Optional<User> findUserByEmail(String email);
+
+    List<User> findAllUsersOrderBySignUpDateDesc();
 }

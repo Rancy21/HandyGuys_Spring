@@ -1,6 +1,10 @@
 package com.handy.web.HandyGuys.service;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -65,4 +69,19 @@ public class UserService {
             return "User not found";
         }
     }
+
+    public List<User> getLatestSignUpList() {
+        return repository.findAllUsersOrderBySignUpDateDesc().stream()
+                .filter(user -> {
+                    LocalDate signUpDate = user.getSignUpDate().toInstant()
+                            .atZone(ZoneId.systemDefault())
+                            .toLocalDate();
+                    LocalDate now = LocalDate.now();
+                    // Check if the month and year match
+                    return signUpDate.getMonthValue() == now.getMonthValue() &&
+                            signUpDate.getYear() == now.getYear();
+                })
+                .collect(Collectors.toList());
+    }
+
 }

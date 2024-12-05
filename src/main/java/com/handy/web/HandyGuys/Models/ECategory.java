@@ -1,5 +1,5 @@
 package com.handy.web.HandyGuys.Models;
 
-public enum Category {
+public enum ECategory {
     Plumbing, Cleaning
 }
