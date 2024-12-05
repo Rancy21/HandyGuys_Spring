@@ -21,7 +21,7 @@ public class Skill {
     private UUID id = UUID.randomUUID();
     @Column(name = "category")
     private ECategory category;
-    @Column(name = "description")
+    @Column(name = "description", length = 1000)
     private String description;
     @ManyToOne
     @JoinColumn(name = "handy_id")
