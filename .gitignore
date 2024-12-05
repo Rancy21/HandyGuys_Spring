@@ -36,5 +36,5 @@ build/
 pom.xml
 
 # Ignore application.properties
-src/main/java/com/handy/web/HandyGuys/resources/application.properties
 
+src/main/resources/application.properties
