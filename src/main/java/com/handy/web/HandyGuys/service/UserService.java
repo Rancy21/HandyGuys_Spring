@@ -27,6 +27,10 @@ public class UserService {
     public String updateUser(User user, String email) {
         Optional<User> existingUser = repository.findUserByEmail(email);
         if (existingUser.isPresent()) {
+            Optional<User> userWithEmail = repository.findUserByEmail(user.getEmail());
+            if (userWithEmail.isPresent()) {
+                return "user with Email already exists";
+            }
             User updatedUser = existingUser.get();
             updatedUser.setEmail(user.getEmail());
             updatedUser.setFirstName(user.getFirstName());
