@@ -33,7 +33,7 @@ public class UserController {
         if (saveStudent.equalsIgnoreCase("User already exists")) {
             return new ResponseEntity<>("User with that email already exists", HttpStatus.CONFLICT);
         } else {
-            return new ResponseEntity<>("user saved successfully saved", HttpStatus.OK);
+            return new ResponseEntity<>("user saved successfully !!", HttpStatus.OK);
         }
     }
 
