@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -28,6 +30,7 @@ public class User {
     @Column(name = "password")
     private String password;
     @Column(name = "is_handy")
+    @JsonProperty("isHandy")
     private boolean isHandy;
     @Column(name = "is_active")
     private boolean isActive = true;
@@ -69,8 +72,16 @@ public class User {
         return isHandy;
     }
 
-    public void setHandy(boolean isHandy) {
-        this.isHandy = isHandy;
+    public boolean getIsHandy() {
+        return isHandy;
+    }
+
+    public void setIsHandy(boolean handy) {
+        this.isHandy = handy;
+    }
+
+    public void setHandy(boolean handy) {
+        this.isHandy = handy;
     }
 
     public boolean isActive() {
