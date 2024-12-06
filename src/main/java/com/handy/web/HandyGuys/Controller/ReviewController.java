@@ -15,9 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.handy.web.HandyGuys.Models.Rating;
 import com.handy.web.HandyGuys.Models.Review;
 import com.handy.web.HandyGuys.Models.Skill;
+import com.handy.web.HandyGuys.Models.User;
 import com.handy.web.HandyGuys.service.RatingService;
 import com.handy.web.HandyGuys.service.ReviewService;
 import com.handy.web.HandyGuys.service.SkillService;
+import com.handy.web.HandyGuys.service.UserService;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @RestController
 @RequestMapping(value = "/review")
@@ -27,16 +30,27 @@ public class ReviewController {
     private ReviewService service;
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private SkillService skillService;
     @Autowired
     private RatingService ratingService;
 
     @PostMapping(value = "/saveReview", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> saveStudent(@RequestBody Review review, @RequestParam String skillId) {
+    public ResponseEntity<?> saveStudent(@RequestBody Review review, @RequestParam String skillId,
+            @RequestParam String email) {
         Skill skill = skillService.getSkill(UUID.fromString(skillId));
+        User user = userService.getUser(email);
+        if (user == null) {
+            return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
+        }
         if (skill == null) {
             return new ResponseEntity<>("Skill not found", HttpStatus.NOT_FOUND);
         }
+
+        review.setUser(user);
+        review.setSkill(skill);
 
         Rating rating = new Rating();
         if (skill.getRating() == null) {
@@ -77,6 +91,17 @@ public class ReviewController {
         }
 
         return new ResponseEntity<>(service.updateReview(review), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/getReview", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> updateStudent(@RequestBody Review review) {
+
+        Review existingReview = service.getReview(review.getUser(), review.getSkill());
+        if (existingReview == null) {
+            return new ResponseEntity<>("Review not found", HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(existingReview, HttpStatus.OK);
     }
 
 }
