@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
+// import jakarta.persistence.FetchType;s
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -37,20 +37,17 @@ public class User {
     @Column(name = "signup_date")
     private Date signUpDate;
 
-    @OneToMany(mappedBy = "user1", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user1")
     List<Conversation> conversations1;
 
-    @OneToMany(mappedBy = "user2", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user2")
     List<Conversation> conversations2;
 
-    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "client")
     List<Appointment> clientAppointments;
 
-    @OneToMany(mappedBy = "handyGuy", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "handyGuy")
     List<Skill> skills;
-
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
-    List<Review> reviews;
 
     public List<Conversation> getConversations1() {
         return conversations1;
@@ -146,10 +143,6 @@ public class User {
 
     public void setSignUpDate(Date signUpDate) {
         this.signUpDate = signUpDate;
-    }
-
-    public List<Review> getReviews() {
-        return reviews;
     }
 
 }
