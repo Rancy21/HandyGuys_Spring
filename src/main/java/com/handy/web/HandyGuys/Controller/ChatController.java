@@ -1,9 +1,12 @@
 package com.handy.web.HandyGuys.Controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -70,4 +73,27 @@ public class ChatController {
         return new ResponseEntity<>("Bad Request", HttpStatus.BAD_REQUEST);
     }
 
+    @GetMapping(value = "getChat", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getChat(@RequestParam String chatId) {
+        Chat chat = chatService.getChat(chatId);
+        if (chat == null) {
+            return new ResponseEntity<>("Chat not found", HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(chat, HttpStatus.OK);
+
+    }
+
+    @GetMapping(value = "getChats", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getChats(@RequestParam String convId) {
+        Conversation conversation = convService.getConversationById(convId);
+        if (conversation == null)  {
+            return new ResponseEntity<>("Conversation not found", HttpStatus.NOT_FOUND);
+        }
+        List<Chat> chats = chatService.getChatsPerConversation(conversation);
+        if (chats.isEmpty()) {
+            return new ResponseEntity<>("No messages for this conversation.", HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(chats, HttpStatus.OK);
+
+    }
 }

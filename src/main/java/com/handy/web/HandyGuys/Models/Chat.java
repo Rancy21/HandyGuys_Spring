@@ -15,7 +15,7 @@ import jakarta.persistence.Table;
 public class Chat {
     @Id
     @Column(name = "chat_id")
-    private UUID id;
+    private UUID id = UUID.randomUUID();
     @ManyToOne
     @JoinColumn(name = "conversation_id")
     private Conversation conversation;
@@ -63,6 +63,13 @@ public class Chat {
         return isNew;
     }
     public void setNew(boolean isNew) {
+        this.isNew = isNew;
+    }
+
+    public boolean getIsNew() {
+        return isNew;
+    }
+    public void setIsNew(boolean isNew) {
         this.isNew = isNew;
     }
 

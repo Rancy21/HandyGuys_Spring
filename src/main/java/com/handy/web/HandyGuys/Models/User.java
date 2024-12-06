@@ -37,11 +37,11 @@ public class User {
     @Column(name = "signup_date")
     private Date signUpDate;
 
-    @OneToMany(mappedBy = "user1", fetch = FetchType.EAGER)
-    List<Conversation> conversations1;
+    // @OneToMany(mappedBy = "user1", fetch = FetchType.EAGER)
+    // List<Conversation> conversations1;
 
-    @OneToMany(mappedBy = "user2", fetch = FetchType.EAGER)
-    List<Conversation> conversations2;
+    // @OneToMany(mappedBy = "user2", fetch = FetchType.EAGER)
+    // List<Conversation> conversations2;
 
     @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
     List<Appointment> clientAppointments;
@@ -52,13 +52,13 @@ public class User {
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     List<Review> reviews;
 
-    public List<Conversation> getConversations1() {
-        return conversations1;
-    }
+    // public List<Conversation> getConversations1() {
+    //     return conversations1;
+    // }
 
-    public List<Conversation> getConversations2() {
-        return conversations2;
-    }
+    // public List<Conversation> getConversations2() {
+    //     return conversations2;
+    // }
 
     public List<Appointment> getClientAppointments() {
         return clientAppointments;

@@ -28,8 +28,8 @@ public class Conversation {
     @JoinColumn(name = "user2_id")
     private User user2;
 
-    @OneToMany(mappedBy = "conversation", fetch = FetchType.EAGER)
-    private List<Chat> chats;
+    // @OneToMany(mappedBy = "conversation", fetch = FetchType.EAGER)
+    // private List<Chat> chats;
 
     public UUID getId() {
         return id;
@@ -55,7 +55,7 @@ public class Conversation {
         this.user2 = user2;
     }
 
-    public List<Chat> getChats() {
-        return chats;
-    }
+    // public List<Chat> getChats() {
+    //     return chats;
+    // }
 }
