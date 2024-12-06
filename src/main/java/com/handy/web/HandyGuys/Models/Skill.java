@@ -5,7 +5,7 @@ import java.util.UUID;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
+// import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -27,10 +27,10 @@ public class Skill {
     @JoinColumn(name = "handy_id")
     private User handyGuy;
 
-    @OneToMany(mappedBy = "skill", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "skill")
     List<Review> reviews;
 
-    @OneToMany(mappedBy = "skill", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "skill")
     List<Appointment> appointments;
 
     public List<Review> getReviews() {

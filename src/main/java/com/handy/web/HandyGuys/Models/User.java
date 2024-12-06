@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
+// import jakarta.persistence.FetchType;s
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -37,24 +37,38 @@ public class User {
     @Column(name = "signup_date")
     private Date signUpDate;
 
+<<<<<<< HEAD
     // @OneToMany(mappedBy = "user1", fetch = FetchType.EAGER)
     // List<Conversation> conversations1;
 
     // @OneToMany(mappedBy = "user2", fetch = FetchType.EAGER)
     // List<Conversation> conversations2;
+=======
+    @OneToMany(mappedBy = "user1")
+    List<Conversation> conversations1;
 
-    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user2")
+    List<Conversation> conversations2;
+>>>>>>> c0277a7a40a3a7e0526d10c660d2e5267091e0b1
+
+    @OneToMany(mappedBy = "client")
     List<Appointment> clientAppointments;
 
-    @OneToMany(mappedBy = "handyGuy", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "handyGuy")
     List<Skill> skills;
 
+<<<<<<< HEAD
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     List<Review> reviews;
 
     // public List<Conversation> getConversations1() {
     //     return conversations1;
     // }
+=======
+    public List<Conversation> getConversations1() {
+        return conversations1;
+    }
+>>>>>>> c0277a7a40a3a7e0526d10c660d2e5267091e0b1
 
     // public List<Conversation> getConversations2() {
     //     return conversations2;
@@ -146,10 +160,6 @@ public class User {
 
     public void setSignUpDate(Date signUpDate) {
         this.signUpDate = signUpDate;
-    }
-
-    public List<Review> getReviews() {
-        return reviews;
     }
 
 }
