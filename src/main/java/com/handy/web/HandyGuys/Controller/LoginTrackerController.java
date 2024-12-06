@@ -44,10 +44,10 @@ public class LoginTrackerController {
 
         // Save the tracker
         String saveTracker = trackerService.saveTrack(tracker);
-        if (saveTracker.equalsIgnoreCase("Tracker saved successfully")) {
+        if (saveTracker.equalsIgnoreCase("Login tracker saved successfully!")) {
             return new ResponseEntity<>("Tracker saved", HttpStatus.OK);
         }
-        return new ResponseEntity<>("Bad Request", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>("bad request", HttpStatus.BAD_REQUEST);
     }
 
 }

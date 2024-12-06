@@ -15,7 +15,7 @@ import jakarta.persistence.Table;
 public class LoginTracker {
     @Id
     @Column(name = "tracker_id")
-    private UUID id;
+    private UUID id = UUID.randomUUID();
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
