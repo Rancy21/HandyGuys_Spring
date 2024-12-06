@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.handy.web.HandyGuys.Models.Review;
+import com.handy.web.HandyGuys.Models.Skill;
+import com.handy.web.HandyGuys.Models.User;
 import com.handy.web.HandyGuys.repository.IReviewRepository;
 
 @Service
@@ -35,6 +37,16 @@ public class ReviewService {
 
     public Review getReview(UUID id) {
         Optional<Review> review = repository.findById(id);
+
+        if (review.isPresent()) {
+            return review.get();
+        } else {
+            return null;
+        }
+    }
+
+    public Review getReview(User user, Skill skill) {
+        Optional<Review> review = repository.findByUserAndSkill(user, skill);
 
         if (review.isPresent()) {
             return review.get();
