@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -53,4 +54,16 @@ public class ConversationController {
         return new ResponseEntity<>("Bad Request", HttpStatus.BAD_REQUEST);
     }
 
+
+    @GetMapping(value = "/getConversation", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getConversation(@RequestParam String convId){
+
+        // Fetch the conversation and check if it exists
+        Conversation conversation = convService.getConversationById(convId);
+        if (conversation == null) {
+            // If not, return not found status
+            return new ResponseEntity<>("Conversation not found", HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(conversation, HttpStatus.OK);
+    }
 }
