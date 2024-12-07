@@ -1,9 +1,6 @@
 package com.handy.web.HandyGuys.Controller;
 
-<<<<<<< HEAD
-=======
 import java.util.Arrays;
->>>>>>> 6d6bae8319a48330645b132933a945c319ea9c29
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,7 +81,6 @@ public class SkillController {
         }
     }
 
-<<<<<<< HEAD
     @GetMapping(value = "/getSkillperCategory", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getSkillsByCategory(@RequestParam(required = true) String category) {
         
@@ -110,7 +106,7 @@ public class SkillController {
             return new ResponseEntity<>(skills, HttpStatus.OK);
         }
     }
-=======
+
     @GetMapping(value = "/getCategories", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<String>> getCategories() {
         List<String> categories = Arrays.stream(ECategory.values())
@@ -120,5 +116,4 @@ public class SkillController {
         return new ResponseEntity<>(categories, HttpStatus.OK);
     }
 
->>>>>>> 6d6bae8319a48330645b132933a945c319ea9c29
 }
