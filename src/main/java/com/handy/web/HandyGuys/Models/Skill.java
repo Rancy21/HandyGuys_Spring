@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.UUID;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 // import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
@@ -20,6 +21,7 @@ public class Skill {
     @Column(name = "id")
     private UUID id = UUID.randomUUID();
     @Column(name = "category")
+    @Convert(converter = CategoryConverter.class)
     private ECategory category;
     @Column(name = "description", length = 1000)
     private String description;
