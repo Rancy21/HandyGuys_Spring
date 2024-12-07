@@ -1,15 +1,19 @@
 package com.handy.web.HandyGuys.Controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.handy.web.HandyGuys.Models.ECategory;
 import com.handy.web.HandyGuys.Models.Skill;
 import com.handy.web.HandyGuys.Models.User;
 import com.handy.web.HandyGuys.service.SkillService;
@@ -76,4 +80,29 @@ public class SkillController {
         }
     }
 
+    @GetMapping(value = "/getSkillperCategory", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getSkillsByCategory(@RequestParam(required = true) String category) {
+        
+        try {
+            ECategory cat = ECategory.valueOf(category);
+            List<Skill> skills = skillService.getSkillsPerCategory(cat);
+            if (skills.isEmpty()) {
+                return new ResponseEntity<>("No skills found for this category", HttpStatus.NOT_FOUND);
+            } else {
+                return new ResponseEntity<>(skills, HttpStatus.OK);
+            }
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>("Invalid category", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping(value = "/getAllSkills", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getAllSkills() {
+        List<Skill> skills = skillService.getAllSkills();
+        if (skills.isEmpty()) {
+            return new ResponseEntity<>("No skills found", HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(skills, HttpStatus.OK);
+        }
+    }
 }

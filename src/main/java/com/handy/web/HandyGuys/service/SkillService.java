@@ -1,11 +1,13 @@
 package com.handy.web.HandyGuys.service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.handy.web.HandyGuys.Models.ECategory;
 import com.handy.web.HandyGuys.Models.Skill;
 import com.handy.web.HandyGuys.repository.ISkillRepository;
 
@@ -51,5 +53,13 @@ public class SkillService {
         } else {
             return null;
         }
+    }
+
+    public List<Skill> getSkillsPerCategory(ECategory category){
+        return repo.findByCategory(category);
+    }
+
+    public List<Skill> getAllSkills(){
+        return repo.findAll();
     }
 }
