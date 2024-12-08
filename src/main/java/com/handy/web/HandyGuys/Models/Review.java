@@ -2,6 +2,8 @@ package com.handy.web.HandyGuys.Models;
 
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -21,6 +23,7 @@ public class Review {
     private UUID id = UUID.randomUUID();
     @ManyToOne
     @JoinColumn(name = "skill_id")
+    @JsonBackReference
     private Skill skill;
     @Column(name = "review")
     private String review;

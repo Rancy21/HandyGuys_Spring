@@ -3,6 +3,8 @@ package com.handy.web.HandyGuys.Models;
 import java.util.List;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
@@ -48,6 +50,7 @@ public class Skill {
     }
 
     @OneToOne(mappedBy = "skill")
+    @JsonManagedReference
     Rating rating;
 
     public UUID getId() {
