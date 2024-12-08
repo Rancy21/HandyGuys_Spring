@@ -43,7 +43,7 @@ public class UserController {
     public ResponseEntity<?> getUser(@RequestParam(required = true) String email) {
         User user = service.getUser(email);
         if (user == null) {
-            return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("User With that email doesn't exist", HttpStatus.NOT_FOUND);
         } else {
             return new ResponseEntity<>(user, HttpStatus.OK);
         }
@@ -60,8 +60,7 @@ public class UserController {
             return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
         } else if (updateUser.equalsIgnoreCase("user with Email already exists")) {
             return new ResponseEntity<>("This email is already in use", HttpStatus.CONFLICT);
-        }
-        else {
+        } else {
             return new ResponseEntity<>(updateUser, HttpStatus.OK);
         }
     }
