@@ -13,7 +13,7 @@ import com.handy.web.HandyGuys.Models.User;
 
 @Repository
 public interface IReviewRepository extends JpaRepository<Review, UUID> {
-    List<Review> findBySkillId(UUID skillId);
+    List<Review> findAllBySkill(Skill skill);
 
     Optional<Review> findByUserAndSkill(User user, Skill skill);
 }

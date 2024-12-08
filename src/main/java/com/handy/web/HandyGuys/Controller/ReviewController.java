@@ -1,5 +1,6 @@
 package com.handy.web.HandyGuys.Controller;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -124,6 +125,18 @@ public class ReviewController {
         }
 
         return new ResponseEntity<>(existingReview, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/getReviewsList", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getList(@RequestParam String id) {
+        Skill skill = skillService.getSkill(UUID.fromString(id));
+
+        List<Review> reviews = service.getReviews(skill);
+
+        if (reviews.isEmpty() || reviews == null) {
+            return new ResponseEntity<>("No reviews found for this skill", HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(reviews, HttpStatus.OK);
     }
 
 }
