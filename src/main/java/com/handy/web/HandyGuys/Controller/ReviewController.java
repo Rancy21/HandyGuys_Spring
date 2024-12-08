@@ -49,25 +49,44 @@ public class ReviewController {
             return new ResponseEntity<>("Skill not found", HttpStatus.NOT_FOUND);
         }
 
-        review.setUser(user);
-        review.setSkill(skill);
-
+        Review existingReview = service.getReview(user, skill);
         Rating rating = new Rating();
+        if (existingReview == null) {
+            review.setUser(user);
+            review.setSkill(skill);
+
+            if (skill.getRating() == null) {
+                rating.setSkill(skill);
+                rating.setCumulatedRatings(rating.getCumulatedRatings() + review.getRating());
+                rating.setNumberOfRatings(rating.getNumberOfRatings() + 1);
+                rating.setAvgRating((float) (rating.getCumulatedRatings() / rating.getNumberOfRatings()));
+                ratingService.saveRating(rating);
+            } else {
+                rating = skill.getRating();
+                rating.setCumulatedRatings(rating.getCumulatedRatings() + review.getRating());
+                rating.setNumberOfRatings(rating.getNumberOfRatings() + 1);
+                rating.setAvgRating((float) (rating.getCumulatedRatings() / rating.getNumberOfRatings()));
+                ratingService.saveRating(rating);
+            }
+
+            return new ResponseEntity<>(service.saveReview(review), HttpStatus.OK);
+        }
+
+        existingReview.setDate(review.getDate());
+        existingReview.setRating(review.getRating());
+        existingReview.setReview(review.getReview());
+
         if (skill.getRating() == null) {
-            rating.setSkill(skill);
-            rating.setCumulatedRatings(rating.getCumulatedRatings() + review.getRating());
-            rating.setNumberOfRatings(rating.getNumberOfRatings() + 1);
-            rating.setAvgRating((float) (rating.getCumulatedRatings() / rating.getNumberOfRatings()));
-            ratingService.saveRating(rating);
+            return new ResponseEntity<>("Rating for this skill not found", HttpStatus.NOT_FOUND);
         } else {
             rating = skill.getRating();
+            rating.setCumulatedRatings(rating.getCumulatedRatings() - existingReview.getRating());
             rating.setCumulatedRatings(rating.getCumulatedRatings() + review.getRating());
-            rating.setNumberOfRatings(rating.getNumberOfRatings() + 1);
             rating.setAvgRating((float) (rating.getCumulatedRatings() / rating.getNumberOfRatings()));
             ratingService.saveRating(rating);
         }
+        return new ResponseEntity<>(service.updateReview(existingReview), HttpStatus.OK);
 
-        return new ResponseEntity<>(service.saveReview(review), HttpStatus.OK);
     }
 
     @PostMapping(value = "/updateReview", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -93,10 +112,13 @@ public class ReviewController {
         return new ResponseEntity<>(service.updateReview(review), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/getReview", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> updateStudent(@RequestBody Review review) {
+    @GetMapping(value = "/getReview", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> updateStudent(@RequestParam String email, @RequestParam String id) {
 
-        Review existingReview = service.getReview(review.getUser(), review.getSkill());
+        User user = userService.getUser(email);
+        Skill skill = skillService.getSkill(UUID.fromString(id));
+
+        Review existingReview = service.getReview(user, skill);
         if (existingReview == null) {
             return new ResponseEntity<>("Review not found", HttpStatus.NOT_FOUND);
         }
