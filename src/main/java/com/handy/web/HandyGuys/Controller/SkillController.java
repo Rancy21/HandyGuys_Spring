@@ -2,6 +2,7 @@ package com.handy.web.HandyGuys.Controller;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -125,6 +126,16 @@ public class SkillController {
 
         List<Skill> skills = skillService.getHandySkills(handy);
         return new ResponseEntity<>(skills, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/getSkill", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getSkill(@RequestParam(required = true) String id) {
+        Skill skill = skillService.getSkill(UUID.fromString(id));
+        if (skill == null) {
+            return new ResponseEntity<>("Skill not found", HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(skill, HttpStatus.OK);
+        }
     }
 
 }
