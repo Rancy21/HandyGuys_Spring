@@ -37,7 +37,7 @@ public class Skill {
 
     @OneToOne(mappedBy = "skill")
     @JsonManagedReference
-    Rating rating;
+    private Rating rating;
 
     public UUID getId() {
         return id;
