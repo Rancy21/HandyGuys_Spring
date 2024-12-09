@@ -14,4 +14,6 @@ public interface IUserRepository extends JpaRepository<User, UUID> {
     Optional<User> findUserByEmail(String email);
 
     List<User> findAllByOrderBySignUpDateDesc();
+
+    List<User> findAllByIsHandyTrue();
 }

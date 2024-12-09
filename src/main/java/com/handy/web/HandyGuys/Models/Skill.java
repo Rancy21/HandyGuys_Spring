@@ -3,7 +3,6 @@ package com.handy.web.HandyGuys.Models;
 // import java.util.List;
 import java.util.UUID;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Column;
@@ -29,7 +28,6 @@ public class Skill {
     @Column(name = "description", length = 1000)
     private String description;
     @ManyToOne
-    @JsonBackReference
     @JoinColumn(name = "handy_id")
     private User handyGuy;
 
