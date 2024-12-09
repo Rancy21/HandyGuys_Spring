@@ -1,15 +1,18 @@
 package com.handy.web.HandyGuys.Models;
 
 import java.util.Date;
+import java.util.List;
 // import java.util.List;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 // import jakarta.persistence.FetchType;s
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 // import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -46,9 +49,9 @@ public class User {
     // @OneToMany(mappedBy = "client")
     // List<Appointment> clientAppointments;
 
-    // @OneToMany(mappedBy = "handyGuy")
-    // List<Skill> skills;
-
+    @OneToMany(mappedBy = "handyGuy")
+    @JsonManagedReference
+    List<Skill> skills;
     // @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     // List<Review> reviews;
 
