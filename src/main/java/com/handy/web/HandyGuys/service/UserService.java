@@ -35,7 +35,7 @@ public class UserService {
             if (userWithEmail.isPresent() && !user.getEmail().equalsIgnoreCase(email)) {
                 return "user with Email already exists";
             }
-            
+
             User updatedUser = existingUser.get();
             updatedUser.setEmail(user.getEmail());
             updatedUser.setFirstName(user.getFirstName());
@@ -98,6 +98,10 @@ public class UserService {
                             signUpDate.getYear() == now.getYear();
                 })
                 .collect(Collectors.toList());
+    }
+
+    public List<User> getAllHelpers() {
+        return repository.findAllByIsHandyTrue();
     }
 
 }

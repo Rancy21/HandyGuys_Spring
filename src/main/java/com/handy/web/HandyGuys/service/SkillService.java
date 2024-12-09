@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.handy.web.HandyGuys.Models.ECategory;
 import com.handy.web.HandyGuys.Models.Skill;
+import com.handy.web.HandyGuys.Models.User;
 import com.handy.web.HandyGuys.repository.ISkillRepository;
 
 @Service
@@ -55,11 +56,15 @@ public class SkillService {
         }
     }
 
-    public List<Skill> getSkillsPerCategory(ECategory category){
+    public List<Skill> getSkillsPerCategory(ECategory category) {
         return repo.findByCategory(category);
     }
 
-    public List<Skill> getAllSkills(){
+    public List<Skill> getAllSkills() {
         return repo.findAll();
+    }
+
+    public List<Skill> getHandySkills(User handy) {
+        return repo.findAllByHandyGuy(handy);
     }
 }

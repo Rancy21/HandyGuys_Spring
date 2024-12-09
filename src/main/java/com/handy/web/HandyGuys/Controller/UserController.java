@@ -68,7 +68,7 @@ public class UserController {
     public ResponseEntity<?> getUser(@RequestParam(required = true) String email) {
         User user = service.getUser(email);
         if (user == null) {
-            return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("User With that email doesn't exist", HttpStatus.NOT_FOUND);
         } else {
             return new ResponseEntity<>(user, HttpStatus.OK);
         }
@@ -85,8 +85,7 @@ public class UserController {
             return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
         } else if (updateUser.equalsIgnoreCase("user with Email already exists")) {
             return new ResponseEntity<>("This email is already in use", HttpStatus.CONFLICT);
-        }
-        else {
+        } else {
             return new ResponseEntity<>(updateUser, HttpStatus.OK);
         }
     }
@@ -122,6 +121,16 @@ public class UserController {
             return new ResponseEntity<>("No sign up this month", HttpStatus.NOT_FOUND);
         } else {
             return new ResponseEntity<>(latestSignUP, HttpStatus.OK);
+        }
+    }
+
+    @GetMapping(value = "/gethelpers", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getHelpers() {
+        List<User> helpers = service.getAllHelpers();
+        if (helpers.isEmpty() || helpers == null) {
+            return new ResponseEntity<>("No helpers for now", HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(helpers, HttpStatus.OK);
         }
     }
 

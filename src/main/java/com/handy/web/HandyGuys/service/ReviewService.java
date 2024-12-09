@@ -1,5 +1,6 @@
 package com.handy.web.HandyGuys.service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -53,6 +54,10 @@ public class ReviewService {
         } else {
             return null;
         }
+    }
+
+    public List<Review> getReviews(Skill skill) {
+        return repository.findAllBySkill(skill);
     }
 
 }

@@ -1,7 +1,9 @@
 package com.handy.web.HandyGuys.Models;
 
-import java.util.List;
+// import java.util.List;
 import java.util.UUID;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
@@ -10,7 +12,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+// import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -29,26 +31,13 @@ public class Skill {
     @JoinColumn(name = "handy_id")
     private User handyGuy;
 
-    @OneToMany(mappedBy = "skill")
-    List<Review> reviews;
-
-    @OneToMany(mappedBy = "skill")
-    List<Appointment> appointments;
-
-    public List<Review> getReviews() {
-        return reviews;
-    }
-
-    public List<Appointment> getAppointments() {
-        return appointments;
-    }
-
     public Rating getRating() {
         return rating;
     }
 
     @OneToOne(mappedBy = "skill")
-    Rating rating;
+    @JsonManagedReference
+    private Rating rating;
 
     public UUID getId() {
         return id;

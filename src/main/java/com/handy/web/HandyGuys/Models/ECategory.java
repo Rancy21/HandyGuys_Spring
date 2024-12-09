@@ -3,7 +3,15 @@ package com.handy.web.HandyGuys.Models;
 public enum ECategory {
     Plumbing("Plumbing"),
     Cleaning("Cleaning"),
-    Electrical_repair("Electrical Repair");
+    Painting("Painting"),
+    Housekeeping("Housekeeping"),
+    Cooking("Cooking"),
+    Laundry("Laundry"),
+    WoodWorking("Wood Working"),
+    Masonry("Masonry"),
+    Driving("Driving"),
+    Tutoring("Tutoring"),
+    Event_Planing("Event Planing");
 
     private final String displayName;
 

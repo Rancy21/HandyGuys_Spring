@@ -2,6 +2,7 @@ package com.handy.web.HandyGuys.Controller;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -83,7 +84,7 @@ public class SkillController {
 
     @GetMapping(value = "/getSkillperCategory", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getSkillsByCategory(@RequestParam(required = true) String category) {
-        
+
         try {
             ECategory cat = ECategory.valueOf(category);
             List<Skill> skills = skillService.getSkillsPerCategory(cat);
@@ -114,6 +115,27 @@ public class SkillController {
                 .toList();
 
         return new ResponseEntity<>(categories, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/getHandySkills", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getHandySkills(@RequestParam String email) {
+        User handy = userService.getUser(email);
+        if (handy == null) {
+            return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
+        }
+
+        List<Skill> skills = skillService.getHandySkills(handy);
+        return new ResponseEntity<>(skills, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/getSkill", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getSkill(@RequestParam(required = true) String id) {
+        Skill skill = skillService.getSkill(UUID.fromString(id));
+        if (skill == null) {
+            return new ResponseEntity<>("Skill not found", HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(skill, HttpStatus.OK);
+        }
     }
 
 }
