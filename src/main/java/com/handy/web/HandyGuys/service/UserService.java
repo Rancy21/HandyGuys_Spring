@@ -51,6 +51,20 @@ public class UserService {
         }
     }
 
+    public String updatePassword(String password, String email) {
+        Optional<User> existingUser = repository.findUserByEmail(email);
+        if (existingUser.isPresent() && existingUser.get().isActive()) {
+            
+            User updatedUser = existingUser.get();
+            updatedUser.setPassword(password);
+            repository.save(updatedUser);
+            return "User updated successfully";
+        } else {
+            return "User not found";
+        }
+    }
+
+
     public User getUser(String email) {
         Optional<User> user = repository.findUserByEmail(email);
         if (user.isPresent() && user.get().isActive()) {

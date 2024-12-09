@@ -1,9 +1,9 @@
 package com.handy.web.HandyGuys.Models;
 
 public enum ECategory {
-    Electrical_repair("Electrical Repair"),
     Plumbing("Plumbing"),
-    Cleaning("Cleaning");
+    Cleaning("Cleaning"),
+    Electrical_repair("Electrical Repair");
 
     private final String displayName;
 

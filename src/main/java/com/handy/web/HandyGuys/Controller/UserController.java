@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.handy.web.HandyGuys.Models.User;
+import com.handy.web.HandyGuys.service.EmailService;
 import com.handy.web.HandyGuys.service.UserService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,6 +23,30 @@ public class UserController {
 
     @Autowired
     private UserService service;
+
+    @Autowired
+    private EmailService emailService;
+
+    public class OtpClass {
+    private int OTP;
+    public int getOtp() { return OTP; }
+    public void setOtp(int OTP) { this.OTP = OTP; }
+        
+    }
+
+    @GetMapping(value = "/sendOTPbyEmail", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> sendEmail(@RequestParam String to) {
+        String subject = "Password Reset";
+        // Generate OTP here
+        int OTP = (int) (Math.random() * 100000);
+        OtpClass otpClass = new OtpClass();
+        otpClass.setOtp(OTP);
+
+        String text = "Your OTP is: \n" + OTP + "\n You can just ingore this message " + 
+        "if you are not the one who requested a password reset."; 
+        emailService.sendSimpleEmail(to, subject, text);
+        return new ResponseEntity<>(otpClass, HttpStatus.OK);
+    }
 
     @PostMapping(value = "/saveUser", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> saveStudent(@RequestBody User user) {
@@ -60,6 +85,20 @@ public class UserController {
             return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
         } else if (updateUser.equalsIgnoreCase("user with Email already exists")) {
             return new ResponseEntity<>("This email is already in use", HttpStatus.CONFLICT);
+        }
+        else {
+            return new ResponseEntity<>(updateUser, HttpStatus.OK);
+        }
+    }
+
+    @PostMapping(value = "/updatePassword", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> updatePassword(@RequestBody User user, @RequestParam String email) {
+        if (user.getPassword().trim().isEmpty()) {
+            return new ResponseEntity<>("Please enter a valid password", HttpStatus.BAD_REQUEST);
+        }
+        String updateUser = service.updatePassword(user.getPassword(), email);
+        if (updateUser.equalsIgnoreCase("User not found")) {
+            return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
         }
         else {
             return new ResponseEntity<>(updateUser, HttpStatus.OK);
