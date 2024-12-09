@@ -86,7 +86,13 @@ public class SkillController {
     public ResponseEntity<?> getSkillsByCategory(@RequestParam(required = true) String category) {
 
         try {
-            ECategory cat = ECategory.valueOf(category);
+
+            ECategory cat = null;
+            for (ECategory ecategory : ECategory.values()) {
+                if (ecategory.getDisplayName().equalsIgnoreCase(category)) {
+                    cat = ecategory;
+                }
+            }
             List<Skill> skills = skillService.getSkillsPerCategory(cat);
             if (skills.isEmpty()) {
                 return new ResponseEntity<>("No skills found for this category", HttpStatus.NOT_FOUND);
