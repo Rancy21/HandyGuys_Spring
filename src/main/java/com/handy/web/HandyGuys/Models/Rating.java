@@ -2,7 +2,8 @@ package com.handy.web.HandyGuys.Models;
 
 import java.util.UUID;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+// import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -19,8 +20,8 @@ public class Rating {
     private UUID id = UUID.randomUUID();
     @OneToOne
     @JoinColumn(name = "skill_id")
-    @JsonBackReference
-    private Skill skill;
+    @JsonIgnoreProperties("rating") // Ignore the "ratings" field in Skill to avoid infinite recursion private
+    Skill skill;
     @Column(name = "number_of_ratings")
     private double numberOfRatings;
     @Column(name = "cumulated_ratings")
