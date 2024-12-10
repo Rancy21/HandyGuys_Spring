@@ -28,10 +28,16 @@ public class UserController {
     private EmailService emailService;
 
     public class OtpClass {
-    private int OTP;
-    public int getOtp() { return OTP; }
-    public void setOtp(int OTP) { this.OTP = OTP; }
-        
+        private int OTP;
+
+        public int getOtp() {
+            return OTP;
+        }
+
+        public void setOtp(int OTP) {
+            this.OTP = OTP;
+        }
+
     }
 
     @GetMapping(value = "/sendOTPbyEmail", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -42,8 +48,8 @@ public class UserController {
         OtpClass otpClass = new OtpClass();
         otpClass.setOtp(OTP);
 
-        String text = "Your OTP is: \n" + OTP + "\n You can just ingore this message " + 
-        "if you are not the one who requested a password reset."; 
+        String text = "Your OTP is: \n" + OTP + "\n You can just ingore this message " +
+                "if you are not the one who requested a password reset.";
         emailService.sendSimpleEmail(to, subject, text);
         return new ResponseEntity<>(otpClass, HttpStatus.OK);
     }
@@ -98,8 +104,7 @@ public class UserController {
         String updateUser = service.updatePassword(user.getPassword(), email);
         if (updateUser.equalsIgnoreCase("User not found")) {
             return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
-        }
-        else {
+        } else {
             return new ResponseEntity<>(updateUser, HttpStatus.OK);
         }
     }
@@ -129,6 +134,16 @@ public class UserController {
         List<User> helpers = service.getAllHelpers();
         if (helpers.isEmpty() || helpers == null) {
             return new ResponseEntity<>("No helpers for now", HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(helpers, HttpStatus.OK);
+        }
+    }
+
+    @GetMapping(value = "/getAllUsers", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getUsers() {
+        List<User> helpers = service.getAllUsers();
+        if (helpers.isEmpty() || helpers == null) {
+            return new ResponseEntity<>("No Users for now", HttpStatus.NOT_FOUND);
         } else {
             return new ResponseEntity<>(helpers, HttpStatus.OK);
         }
