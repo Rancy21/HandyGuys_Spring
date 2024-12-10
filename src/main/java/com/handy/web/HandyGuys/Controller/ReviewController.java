@@ -74,10 +74,6 @@ public class ReviewController {
             return new ResponseEntity<>(service.saveReview(review), HttpStatus.OK);
         }
 
-        existingReview.setDate(review.getDate());
-        existingReview.setRating(review.getRating());
-        existingReview.setReview(review.getReview());
-
         if (skill.getRating() == null) {
             return new ResponseEntity<>("Rating for this skill not found", HttpStatus.NOT_FOUND);
         } else {
@@ -85,8 +81,12 @@ public class ReviewController {
             rating.setCumulatedRatings(rating.getCumulatedRatings() - existingReview.getRating());
             rating.setCumulatedRatings(rating.getCumulatedRatings() + review.getRating());
             rating.setAvgRating((float) (rating.getCumulatedRatings() / rating.getNumberOfRatings()));
-            ratingService.saveRating(rating);
+            ratingService.updateRating(rating);
         }
+
+        existingReview.setDate(review.getDate());
+        existingReview.setRating(review.getRating());
+        existingReview.setReview(review.getReview());
         return new ResponseEntity<>(service.updateReview(existingReview), HttpStatus.OK);
 
     }
