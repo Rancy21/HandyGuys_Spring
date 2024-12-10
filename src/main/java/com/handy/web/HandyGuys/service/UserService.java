@@ -54,7 +54,7 @@ public class UserService {
     public String updatePassword(String password, String email) {
         Optional<User> existingUser = repository.findUserByEmail(email);
         if (existingUser.isPresent() && existingUser.get().isActive()) {
-            
+
             User updatedUser = existingUser.get();
             updatedUser.setPassword(password);
             repository.save(updatedUser);
@@ -63,7 +63,6 @@ public class UserService {
             return "User not found";
         }
     }
-
 
     public User getUser(String email) {
         Optional<User> user = repository.findUserByEmail(email);
@@ -102,6 +101,10 @@ public class UserService {
 
     public List<User> getAllHelpers() {
         return repository.findAllByIsHandyTrue();
+    }
+
+    public List<User> getAllUsers() {
+        return repository.findAll();
     }
 
 }
