@@ -1,5 +1,6 @@
 package com.handy.web.HandyGuys.Controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -143,11 +144,16 @@ public class ReviewController {
     public ResponseEntity<?> getTopRating() {
 
         List<Rating> ratings = ratingService.getTop3Rating();
+        List<Skill> topSkills = new ArrayList<Skill>();
+        for (Rating rating : ratings) {
+            Skill skill = skillService.getSkill(rating.getSkill().getId());
+            topSkills.add(skill);
+        }
 
         if (ratings.isEmpty() || ratings == null) {
-            return new ResponseEntity<>("No reviews found for this skill", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("No Featured helpers yet", HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(ratings, HttpStatus.OK);
+        return new ResponseEntity<>(topSkills, HttpStatus.OK);
     }
 
 }
