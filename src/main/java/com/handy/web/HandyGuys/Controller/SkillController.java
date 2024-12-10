@@ -1,5 +1,6 @@
 package com.handy.web.HandyGuys.Controller;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
@@ -111,6 +112,30 @@ public class SkillController {
             return new ResponseEntity<>("No skills found", HttpStatus.NOT_FOUND);
         } else {
             return new ResponseEntity<>(skills, HttpStatus.OK);
+        }
+    }
+    @GetMapping(value = "/globalSearch", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> globalSearch(@RequestParam(required = true) String value) {
+        List<Skill> skills = skillService.getAllSkills();
+        List<Skill> result = new ArrayList<>();
+        String fullName = "";
+        value = value.trim();
+        value = value.toLowerCase();
+        
+        if (skills.isEmpty()) {
+            return new ResponseEntity<>("No skills found", HttpStatus.NOT_FOUND);
+        } else {
+            for (Skill skill : skills) {
+                fullName = skill.getHandyGuy().getFirstName().toLowerCase() + " " + skill.getHandyGuy().getLastName().toLowerCase();
+                if(skill.getDescription().toLowerCase().contains(value) || fullName.contains(value) 
+                || skill.getCategory().getDisplayName().toLowerCase().contains(value)){
+                    result.add(skill);
+                }
+            }
+            if(result.isEmpty()){
+                return new ResponseEntity<>("No skills found with the given search value", HttpStatus.NOT_FOUND);
+            }
+            return new ResponseEntity<>(result, HttpStatus.OK);
         }
     }
 
