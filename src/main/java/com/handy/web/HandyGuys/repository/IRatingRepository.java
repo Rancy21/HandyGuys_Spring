@@ -1,5 +1,6 @@
 package com.handy.web.HandyGuys.repository;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -14,4 +15,6 @@ import com.handy.web.HandyGuys.Models.Skill;
 @Repository
 public interface IRatingRepository extends JpaRepository<Rating, UUID> {
     Optional<Rating> findBySkill(Skill skill);
+
+    List<Rating> findTop3ByOrderByAvgRatingDesc();
 }

@@ -121,7 +121,7 @@ public class ReviewController {
 
         Review existingReview = service.getReview(user, skill);
         if (existingReview == null) {
-            return new ResponseEntity<>("Review not found", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("", HttpStatus.NOT_FOUND);
         }
 
         return new ResponseEntity<>(existingReview, HttpStatus.OK);
@@ -137,6 +137,17 @@ public class ReviewController {
             return new ResponseEntity<>("No reviews found for this skill", HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(reviews, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/getTopRating", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getTopRating() {
+
+        List<Rating> ratings = ratingService.getTop3Rating();
+
+        if (ratings.isEmpty() || ratings == null) {
+            return new ResponseEntity<>("No reviews found for this skill", HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(ratings, HttpStatus.OK);
     }
 
 }

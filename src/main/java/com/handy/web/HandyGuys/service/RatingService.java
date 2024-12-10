@@ -1,5 +1,6 @@
 package com.handy.web.HandyGuys.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,5 +30,9 @@ public class RatingService {
             return "Rating updated successfully";
         }
         return "Rating not found";
+    }
+
+    public List<Rating> getTop3Rating() {
+        return repo.findTop3ByOrderByAvgRatingDesc();
     }
 }
