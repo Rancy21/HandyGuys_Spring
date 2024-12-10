@@ -54,7 +54,7 @@ public class LoginTrackerController {
         return new ResponseEntity<>("bad request", HttpStatus.BAD_REQUEST);
     }
 
-    @GetMapping(value = "/getTracker", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/getTracker", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getLatestLogin() {
 
         // Fetch the user and check if it exists
@@ -63,7 +63,7 @@ public class LoginTrackerController {
         if (trackers.isEmpty() || trackers == null) {
             return new ResponseEntity<>("No Login was made this month", HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(trackers, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(trackers, HttpStatus.OK);
     }
 
 }
