@@ -41,9 +41,7 @@ public class UserService {
             updatedUser.setFirstName(user.getFirstName());
             updatedUser.setLastName(user.getLastName());
             updatedUser.setHandy(user.isHandy());
-            updatedUser.setSignUpDate(user.getSignUpDate());
             updatedUser.setPhoneNumber(user.getPhoneNumber());
-            updatedUser.setPassword(user.getPassword());
             repository.save(updatedUser);
             return "User updated successfully";
         } else {

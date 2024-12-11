@@ -41,8 +41,11 @@ public class UserController {
     }
 
     @GetMapping(value = "/sendOTPbyEmail", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> sendEmail(@RequestParam String to) {
+    public ResponseEntity<?> sendEmail(@RequestParam String to, @RequestParam String condition) {
         String subject = "Password Reset";
+        if(condition.equalsIgnoreCase("login")){
+            subject = "Verify you email address.";
+        }
         // Generate OTP here
         int OTP = (int) (Math.random() * 100000);
         OtpClass otpClass = new OtpClass();
@@ -50,6 +53,9 @@ public class UserController {
 
         String text = "Your OTP is: \n" + OTP + "\n You can just ingore this message " +
                 "if you are not the one who requested a password reset.";
+        if(condition.equalsIgnoreCase("login")){
+            text = "Your OTP is: \n" + OTP;
+        }
         emailService.sendSimpleEmail(to, subject, text);
         return new ResponseEntity<>(otpClass, HttpStatus.OK);
     }
@@ -83,7 +89,7 @@ public class UserController {
     @PostMapping(value = "/updateUser", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> updateUser(@RequestBody User user, @RequestParam String email) {
         if (user.getUserId() == null || user.getFirstName().trim().isEmpty() || user.getLastName().trim().isEmpty()
-                || user.getEmail().trim().isEmpty() || user.getPassword().trim().isEmpty()) {
+                || user.getEmail().trim().isEmpty()) {
             return new ResponseEntity<>("All fields are required", HttpStatus.BAD_REQUEST);
         }
         String updateUser = service.updateUser(user, email);

@@ -33,7 +33,7 @@ public class SkillController {
 
     @PostMapping(value = "/saveSkill", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> saveStudent(@RequestBody Skill skill, @RequestParam(required = true) String email) {
-        if (skill.getId() == null || skill.getCategory().toString().trim().isEmpty()
+        if (skill.getCategory().toString().trim().isEmpty()
                 || skill.getDescription().trim().isEmpty()) {
             return new ResponseEntity<>("All fields are required", HttpStatus.BAD_REQUEST);
         }
@@ -46,10 +46,10 @@ public class SkillController {
 
         String saveSkill = skillService.saveSkill(skill);
 
-        if (saveSkill.equalsIgnoreCase("User already exists")) {
-            return new ResponseEntity<>("User with that email already exists", HttpStatus.CONFLICT);
+        if (saveSkill.equalsIgnoreCase("skill saved successfully")) {
+            return new ResponseEntity<>("Skill saved successfully", HttpStatus.OK);
         } else {
-            return new ResponseEntity<>("skill successfully saved", HttpStatus.OK);
+            return new ResponseEntity<>("An error occured", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
