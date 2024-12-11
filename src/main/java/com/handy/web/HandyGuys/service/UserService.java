@@ -40,7 +40,6 @@ public class UserService {
             updatedUser.setEmail(user.getEmail());
             updatedUser.setFirstName(user.getFirstName());
             updatedUser.setLastName(user.getLastName());
-            updatedUser.setHandy(user.isHandy());
             updatedUser.setPhoneNumber(user.getPhoneNumber());
             repository.save(updatedUser);
             return "User updated successfully";
